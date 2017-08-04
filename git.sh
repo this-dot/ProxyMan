@@ -34,9 +34,9 @@
 # $7  : https_host
 # $8  : https_port
 # $9  : ftp_host
-# $10 : ftp_port
-# $11	: http_protocol
-# $12	: https_protocol
+# ${10} : ftp_port
+# ${11}	: http_protocol
+# ${12}	: https_protocol
 
 # here your code starts
 
@@ -59,11 +59,11 @@ set_proxy() {
 	fi
 	if [ "$3" = "y" ]; then
 		newvar="://$var$1:$2"
-		git config --global http.proxy "$11$newvar"
-		git config --global https.proxy "$12$newvar"
+		git config --global http.proxy "${11}$newvar"
+		git config --global https.proxy "${12}$newvar"
 	elif [ "$3" = "n" ]; then
-		git config --global http.proxy "$11://$var$1:$2"
-		git config --global https.proxy "$12://$var$1:$2"
+		git config --global http.proxy "${11}://$var$1:$2"
+		git config --global https.proxy "${12}://$var$1:$2"
 	fi
 }
 
@@ -89,4 +89,4 @@ elif [ "$1" = "list" ]; then
 fi
 
 unset_proxy
-set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12
+set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12}

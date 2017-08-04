@@ -37,9 +37,9 @@
 # $7  : https_host
 # $8  : https_port
 # $9  : ftp_host
-# $10 : ftp_port
-# $11	: http_protocol
-# $12	: https_protocol
+# ${10} : ftp_port
+# ${11}	: http_protocol
+# ${12}	: https_protocol
 
 # here your code starts
 
@@ -91,11 +91,11 @@ set_proxy() {
 	echo -n "" > bash_config.tmp
 	if [ "$3" = "y" ]; then
 		newvar="://$var$1:$2"
-		echo "http_proxy=\"$11$newvar\"" >> bash_config.tmp
-		echo "https_proxy=\"$12$newvar\"" >> bash_config.tmp
+		echo "http_proxy=\"${11}$newvar\"" >> bash_config.tmp
+		echo "https_proxy=\"${12}$newvar\"" >> bash_config.tmp
 		echo "ftp_proxy=\"ftp$newvar\"" >> bash_config.tmp
-		echo "HTTP_PROXY=\"$11$newvar\"" >> bash_config.tmp
-		echo "HTTPS_PROXY=\"$12$newvar\"" >> bash_config.tmp
+		echo "HTTP_PROXY=\"${11}$newvar\"" >> bash_config.tmp
+		echo "HTTPS_PROXY=\"${12}$newvar\"" >> bash_config.tmp
 		echo "FTP_PROXY=\"ftp$newvar\"" >> bash_config.tmp
 
 		cat bash_config.tmp | tee -a /etc/environment > /dev/null
@@ -103,12 +103,12 @@ set_proxy() {
 		return
 
 	elif [ "$3" = "n" ]; then
-		echo "http_proxy=\"$11://$var$1:$2\"" >> bash_config.tmp
-		echo "https_proxy=\"$12://$var$7:$8\"" >> bash_config.tmp
-		echo "ftp_proxy=\"ftp://$var$9:$10\"" >> bash_config.tmp
-		echo "HTTP_PROXY=\"$11://$var$1:$2\"" >> bash_config.tmp
-		echo "HTTPS_PROXY=\"$12://$var$7:$8\"" >> bash_config.tmp
-		echo "FTP_PROXY=\"ftp://$var$9:$10\"" >> bash_config.tmp
+		echo "http_proxy=\"${11}://$var$1:$2\"" >> bash_config.tmp
+		echo "https_proxy=\"${12}://$var$7:$8\"" >> bash_config.tmp
+		echo "ftp_proxy=\"ftp://$var$9:${10}\"" >> bash_config.tmp
+		echo "HTTP_PROXY=\"${11}://$var$1:$2\"" >> bash_config.tmp
+		echo "HTTPS_PROXY=\"${12}://$var$7:$8\"" >> bash_config.tmp
+		echo "FTP_PROXY=\"ftp://$var$9:${10}\"" >> bash_config.tmp
 
     fix_new_line "/etc/environment"
 		cat bash_config.tmp | tee -a /etc/environment > /dev/null
@@ -127,7 +127,7 @@ if [ "$1" = "unset" ]; then
 	unset_proxy
 	exit
 # elif [ "$1" = "toggle" ]; then
-# 	toggle_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12
+# 	toggle_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12}
 	# exit
 elif [ "$1" = "list" ]; then
 	list_proxy
@@ -136,4 +136,4 @@ fi
 
 
 unset_proxy
-set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12
+set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12}

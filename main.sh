@@ -35,9 +35,9 @@
 # $7  : https_host
 # $8  : https_port
 # $9  : ftp_host
-# $10 : ftp_port
-# $11 : http_proxy
-# $12 : https_proxy
+# ${10} : ftp_port
+# ${11} : http_proxy
+# ${12} : https_proxy
 
 # here your code starts
 

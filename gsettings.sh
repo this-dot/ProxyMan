@@ -35,9 +35,9 @@
 # $7  : https_host
 # $8  : https_port
 # $9  : ftp_host
-# $10 : ftp_port
-# $11	: http_protocol
-# $12	: https_protocol
+# ${10} : ftp_port
+# ${11}	: http_protocol
+# ${12}	: https_protocol
 
 # here your code starts
 
@@ -103,7 +103,7 @@ set_proxy() {
 		gsettings set org.gnome.system.proxy.https host $7
 		gsettings set org.gnome.system.proxy.https port $8
 		gsettings set org.gnome.system.proxy.ftp host $9
-		gsettings set org.gnome.system.proxy.ftp port $10
+		gsettings set org.gnome.system.proxy.ftp port ${10}
 	fi
 	gsettings set org.gnome.system.proxy mode "manual"
 }
@@ -132,4 +132,4 @@ fi
 
 
 unset_proxy
-set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12
+set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} ${11} ${12}
