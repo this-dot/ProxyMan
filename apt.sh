@@ -35,6 +35,8 @@
 # $8  : https_port
 # $9  : ftp_host
 # $10 : ftp_port
+# $11	: http_protocol
+# $12	: https_protocol
 
 # here your code starts
 
@@ -78,8 +80,8 @@ set_proxy() {
 	echo -n "" > apt_config.tmp
 	if [ "$3" = "y" ]; then
 		newvar="://$var$1:$2"
-		echo "Acquire::Http::Proxy \"http$newvar\";" >> apt_config.tmp
-		echo "Acquire::Https::Proxy \"https$newvar\";" >> apt_config.tmp
+		echo "Acquire::Http::Proxy \"$11$newvar\";" >> apt_config.tmp
+		echo "Acquire::Https::Proxy \"$12$newvar\";" >> apt_config.tmp
 		echo "Acquire::Ftp::Proxy \"ftp$newvar\";" >> apt_config.tmp
 
     fix_new_line "/etc/apt/apt.conf"
@@ -88,8 +90,8 @@ set_proxy() {
 		return
 
 	elif [ "$3" = "n" ]; then
-		echo "Acquire::Http::Proxy \"http://$var$1:$2\";" >> apt_config.tmp
-		echo "Acquire::Https::Proxy \"https://$var$7:$8\";" >> apt_config.tmp
+		echo "Acquire::Http::Proxy \"$11://$var$1:$2\";" >> apt_config.tmp
+		echo "Acquire::Https::Proxy \"$12://$var$7:$8\";" >> apt_config.tmp
 		echo "Acquire::Ftp::Proxy \"ftp://$var$9:$10\";" >> apt_config.tmp
 
 		cat apt_config.tmp | tee -a /etc/apt/apt.conf > /dev/null
@@ -121,4 +123,4 @@ elif [ "$1" = "list" ]; then
 fi
 
 unset_proxy
-set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 $10
+set_proxy $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11

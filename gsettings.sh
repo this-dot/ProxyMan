@@ -36,6 +36,8 @@
 # $8  : https_port
 # $9  : ftp_host
 # $10 : ftp_port
+# $11	: http_protocol
+# $12	: https_protocol
 
 # here your code starts
 

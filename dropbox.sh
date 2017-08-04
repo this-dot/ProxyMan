@@ -35,6 +35,8 @@
 # $8  : https_port
 # $9  : ftp_host
 # $10 : ftp_port
+# $11	: http_protocol
+# $12	: https_protocol
 
 # here your code starts
 
@@ -51,7 +53,7 @@ unset_proxy() {
 }
 
 set_proxy() {
-	dropbox proxy manual http $1 $2 $5 $6 > /dev/null
+	dropbox proxy manual $11 $1 $2 $5 $6 > /dev/null
 }
 
 
@@ -76,4 +78,4 @@ elif [ "$1" = "list" ]; then
 fi
 
 unset_proxy
-set_proxy $1 $2 $3 $4 $5 $6
+set_proxy $1 $2 $3 $4 $5 $6 $11

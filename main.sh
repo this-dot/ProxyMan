@@ -36,6 +36,8 @@
 # $8  : https_port
 # $9  : ftp_host
 # $10 : ftp_port
+# $11 : http_proxy
+# $12 : https_proxy
 
 # here your code starts
 
@@ -92,6 +94,7 @@ if [ "$choice" = "set" ]; then
     echo
     echo -e " \e[4mEnter details \e[0m : \e[2m\e[3m (leave blank if you don't to use any proxy settings) \e[0m"
     echo
+    echo -ne "\e[36m HTTP Proxy protocol (http or https) \e[0m"; read http_protocol
     echo -ne "\e[36m HTTP Proxy host \e[0m"; read http_host
     echo -ne "\e[32m HTTP Proxy port \e[0m"; read http_port
     echo -ne "\e[0m Use same for HTTPS and FTP (y/n) ? \e[0m"; read use_same
@@ -103,6 +106,7 @@ if [ "$choice" = "set" ]; then
     fi
 
     if [[ "$use_same" = "y" || "$use_same" = "Y" ]]; then
+        https_protocol=$http_host        
         https_host=$http_host
         ftp_host=$http_host
         https_port=$http_port
@@ -110,6 +114,7 @@ if [ "$choice" = "set" ]; then
         rsync_host=$http_host
         rsync_port=$https_port
     else
+        echo -ne "\e[36m HTTPS Proxy protocol (http or https) \e[0m " ; read https_host
         echo -ne "\e[36m HTTPS Proxy host \e[0m " ; read https_host
         echo -ne "\e[32m HTTPS Proxy port \e[0m " ; read https_port
         echo -ne "\e[36m FTP   Proxy host \e[0m " ; read ftp_host
@@ -136,7 +141,7 @@ echo
 
 case $choice in
     "set")
-        args=("$http_host" "$http_port" "$use_same" "$use_auth" "$username" "$password" "$https_host" "$https_port" "$ftp_host" "$ftp_port" )
+        args=("$http_host" "$http_port" "$use_same" "$use_auth" "$username" "$password" "$https_host" "$https_port" "$ftp_host" "$ftp_port" "$http_protocol" "$https_protocol")
         for i in "${targets[@]}"
         do
             case $i in
