@@ -81,9 +81,11 @@ fi
 if [ "$choice" = "set" ]; then
 
     # default values
+    http_protocol=""
     http_host=""
     http_port=""
     use_same="no"
+    https_protocol=""
     https_host=""
     https_port=""
     ftp_host=""
@@ -106,7 +108,7 @@ if [ "$choice" = "set" ]; then
     fi
 
     if [[ "$use_same" = "y" || "$use_same" = "Y" ]]; then
-        https_protocol=$http_host        
+        https_protocol=$http_protocol        
         https_host=$http_host
         ftp_host=$http_host
         https_port=$http_port
